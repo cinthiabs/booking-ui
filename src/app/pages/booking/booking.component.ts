@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder,FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { Booking } from '../../models/Booking';
-import { Table, TableModule } from 'primeng/table';
+import { TableModule } from 'primeng/table';
+import { ToolbarModule } from 'primeng/toolbar';
 
 import { BookingService } from '../../../services/booking/booking.service';
 import { CommonModule } from '@angular/common';
@@ -13,20 +14,21 @@ import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-booking',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule,DialogModule,InputTextModule,TableModule,ButtonModule],
+  imports: [FormsModule,
+     ReactiveFormsModule, 
+     CommonModule,
+     DialogModule,
+     InputTextModule,
+     TableModule,
+     ButtonModule,
+     ToolbarModule],
   templateUrl: './booking.component.html',
   styleUrl: './booking.component.scss'
 })
 export class BookingComponent implements OnInit {
-  @ViewChild('dt') dataTable!: Table;
-
   bookings: Booking[] = [];
-  selectedSales: any[] = [];
   loadingTable = false;
-  loadingButton = false;
   messageTable = 'No data found';
-  isEditMode: boolean = false;
-  saleId: number = 0;
   visibleDialog: boolean = false;
   
   booking: Booking = {
@@ -40,7 +42,6 @@ export class BookingComponent implements OnInit {
     customer: { customerId: 0, name: '' },
     vehicle: { vehicleId: 0, model: '' }
   };
-  
   
   constructor(
     private fb: FormBuilder,

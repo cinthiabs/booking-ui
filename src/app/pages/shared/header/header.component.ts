@@ -17,9 +17,8 @@ export class HeaderComponent {
   ngOnInit() {
 
     this.items = [
-      { label: 'Home', icon: 'pi pi-home', route: '/' },
       {
-        label: 'Booking',
+        label: 'Booking', icon: 'pi pi-home',
         items: [
           { label: 'Report Booking', icon: 'pi pi-file-plus', route: '/booking' }
         ]
