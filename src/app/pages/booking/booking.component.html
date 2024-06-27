@@ -1,0 +1,105 @@
+<div class="container">
+    <div class="crud">
+      <p-dialog 
+        header="View Booking"
+        [modal]="true"
+        [draggable]="false"
+        [resizable]="false"
+        [(visible)]="visibleDialog" 
+        [style]="{ width: '38rem', height: '36rem'}"
+        [dismissableMask]="false" >
+        
+        <form>
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="bookingId" class="font-semibold">Booking ID</label>
+              <input pInputText id="bookingId" [disabled]="true" value="{{ booking.bookingId }}" />
+            </div>
+            <div class="form-field">
+              <label for="startDate" class="font-semibold">Start Date</label>
+              <input pInputText id="startDate" [disabled]="true" value="{{ booking.startDate | date: 'dd/MM/yyyy' }}" />
+            </div>
+            <div class="form-field">
+              <label for="endDate" class="font-semibold">End Date</label>
+              <input pInputText id="endDate" [disabled]="true" value="{{ booking.endDate | date: 'dd/MM/yyyy' }}" />
+            </div>
+            <div class="form-field">
+              <label for="ratingStatus" class="font-semibold">Rating Status</label>
+              <input pInputText [disabled]="true" value="{{ booking.ratingStatus ? 'Sim' : 'Não' }}" />
+            </div>
+            <div class="form-field">
+              <label for="commentStatus" class="font-semibold">Comment Status</label>
+              <input pInputText [disabled]="true" value="{{ booking.commentStatus ? 'Sim' : 'Não' }}" />
+            </div>
+            <div class="form-field">
+              <label for="nameCustomer" class="font-semibold">Name Customer</label>
+              <input pInputText [disabled]="true" value="{{ booking.customer.name }}" />
+            </div>
+            <div class="form-field">
+              <label for="vehicleModel" class="font-semibold">Vehicle Model</label>
+              <input pInputText [disabled]="true" value="{{ booking.vehicle.model }}" />
+            </div>
+          </div>
+        </form>    
+      </p-dialog>
+  
+      <p-table #dt [value]="bookings" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['startDate', 'endDate', 'ratingStatus', 'commentStatus', 'customer', 'vehicle']"
+        [tableStyle]="{ 'min-width': '75rem' }" 
+        [rowHover]="true" 
+        dataKey="id"
+        [rows]="5"
+        [loading]="loadingTable"
+        [rowsPerPageOptions]="[5, 10, 15, 20]"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" 
+        [showCurrentPageReport]="true">
+        
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="startDate">
+              Start Date <p-sortIcon field="startDate"></p-sortIcon>
+            </th>
+            <th pSortableColumn="endDate">
+              End Date <p-sortIcon field="endDate"></p-sortIcon>
+            </th>
+            <th pSortableColumn="ratingStatus">
+              Rating Status <p-sortIcon field="ratingStatus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="commentStatus">
+              Comment Status <p-sortIcon field="commentStatus"></p-sortIcon>
+            </th>
+            <th pSortableColumn="customer">
+              Customer Name <p-sortIcon field="customer"></p-sortIcon>
+            </th>
+            <th pSortableColumn="vehicle">
+              Vehicle Model <p-sortIcon field="vehicle"></p-sortIcon>
+            </th>
+            <th>Actions</th>
+          </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="body" let-booking>
+          <tr>
+            <td>{{ booking.startDate | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ booking.endDate | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ booking.ratingStatus ? 'Sim' : 'Não' }}</td>
+            <td>{{ booking.commentStatus ? 'Sim' : 'Não' }}</td>
+            <td>{{ booking.customer.name }}</td>
+            <td>{{ booking.vehicle.model }}</td>
+            <td>
+              <p-button pRipple icon="pi pi-eye" class="mr-2" [rounded]="true" [outlined]="true" severity="success"
+                [style]="{ 'margin':'5px', height: '40px', width: '40px' }" (click)="openDialog(booking.bookingId)">
+              </p-button>
+            </td>
+          </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="8">{{ messageTable }}</td>
+          </tr>
+        </ng-template>
+        
+      </p-table>  
+    </div>
+  </div>  

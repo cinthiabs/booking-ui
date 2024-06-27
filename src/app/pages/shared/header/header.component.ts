@@ -21,8 +21,7 @@ export class HeaderComponent {
       {
         label: 'Booking',
         items: [
-          { label: 'Report Booking', icon: 'pi pi-file-excel', route: '/' },
-          { label: 'Register Booking', icon: 'pi pi-file-plus', route: '/' },
+          { label: 'Report Booking', icon: 'pi pi-file-plus', route: '/booking' }
         ]
       }
     ];
